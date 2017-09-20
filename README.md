@@ -41,7 +41,7 @@ This variable sets the password for the KeyCloak database user.
 This variable controls the configuration of the KeyCloak session cache. If set to 'true', the session cache is replicated across all nodes in the cluster. The default uses a distributed session cache with 2 owners.
 
 ### USE_RANCHER_IP
-This variable controls whether rancher metadata is needed to run the image.
+This variable controls whether the image will execute in the context of a rancher server.
 
 ## License
 See the license file.
