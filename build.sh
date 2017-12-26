@@ -19,4 +19,4 @@ while getopts "t:" opt; do
     esac
 done
 
-docker build -t="${IMAGE_TAG}" .
+docker build --no-cache -t="${IMAGE_TAG}" .

@@ -5,8 +5,8 @@
 
     <xsl:output method="xml" indent="yes"/>
 
-    <xsl:template match="//*[local-name()='subsystem' and namespace-uri()='urn:jboss:domain:jgroups:4.0']/*[local-name()='channels' and namespace-uri()='urn:jboss:domain:jgroups:4.0']">
-        <channels xmlns="urn:jboss:domain:jgroups:4.0" default="ee">
+    <xsl:template match="//*[local-name()='subsystem' and namespace-uri()='urn:jboss:domain:jgroups:5.0']/*[local-name()='channels' and namespace-uri()='urn:jboss:domain:jgroups:5.0']">
+        <channels xmlns="urn:jboss:domain:jgroups:5.0" default="ee">
             <channel name="ee" stack="tcp"/>
         </channels>
     </xsl:template>
@@ -18,8 +18,8 @@
         </xsl:copy>
     </xsl:template>
 
-    <xsl:template match="//*[local-name()='subsystem' and namespace-uri()='urn:jboss:domain:jgroups:4.0']/*[local-name()='stacks' and namespace-uri()='urn:jboss:domain:jgroups:4.0']">
-        <stacks xmlns="urn:jboss:domain:jgroups:4.0" default="tcp">
+    <xsl:template match="//*[local-name()='subsystem' and namespace-uri()='urn:jboss:domain:jgroups:5.0']/*[local-name()='stacks' and namespace-uri()='urn:jboss:domain:jgroups:5.0']">
+        <stacks xmlns="urn:jboss:domain:jgroups:5.0" default="tcp">
             <stack name="tcp">
                 <transport type="TCP" socket-binding="jgroups-tcp">
                     <property name="external_addr">${env.EXTERNAL_HOST_IP}</property>
@@ -55,12 +55,12 @@
         </stacks>
     </xsl:template>
 
-    <xsl:template match="/*[local-name()='server' and namespace-uri()='urn:jboss:domain:4.0']/*[local-name()='socket-binding-group' and namespace-uri()='urn:jboss:domain:4.0']/*[local-name()='socket-binding' and namespace-uri()='urn:jboss:domain:4.0'][@name='jgroups-tcp']">
-        <socket-binding xmlns="urn:jboss:domain:4.0" name="jgroups-tcp" interface="public" port="7600"/>
+    <xsl:template match="/*[local-name()='server' and namespace-uri()='urn:jboss:domain:5.0']/*[local-name()='socket-binding-group' and namespace-uri()='urn:jboss:domain:5.0']/*[local-name()='socket-binding' and namespace-uri()='urn:jboss:domain:5.0'][@name='jgroups-tcp']">
+        <socket-binding xmlns="urn:jboss:domain:5.0" name="jgroups-tcp" interface="public" port="7600"/>
     </xsl:template>
 
-    <xsl:template match="/*[local-name()='server' and namespace-uri()='urn:jboss:domain:4.0']/*[local-name()='socket-binding-group' and namespace-uri()='urn:jboss:domain:4.0']/*[local-name()='socket-binding' and namespace-uri()='urn:jboss:domain:4.0'][@name='jgroups-tcp-fd']">
-        <socket-binding xmlns="urn:jboss:domain:4.0" name="jgroups-tcp-fd" interface="public" port="57600"/>
+    <xsl:template match="/*[local-name()='server' and namespace-uri()='urn:jboss:domain:5.0']/*[local-name()='socket-binding-group' and namespace-uri()='urn:jboss:domain:5.0']/*[local-name()='socket-binding' and namespace-uri()='urn:jboss:domain:5.0'][@name='jgroups-tcp-fd']">
+        <socket-binding xmlns="urn:jboss:domain:5.0" name="jgroups-tcp-fd" interface="public" port="57600"/>
     </xsl:template>
 
     <xsl:template match="@*|node()">

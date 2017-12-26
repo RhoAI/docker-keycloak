@@ -1,24 +1,27 @@
-FROM jboss/keycloak-mysql:3.2.1.Final
+FROM jboss/keycloak:3.3.0.Final
 
 ADD jgroup.xslt /opt/jboss/keycloak/
 RUN java -jar /usr/share/java/saxon.jar -s:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml -xsl:/opt/jboss/keycloak/jgroup.xslt -o:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml; 
 
 ADD jgroups-module.xml keycloak/modules/system/layers/base/org/jgroups/main/module.xml
 
+ADD changeDatabase.xsl /opt/jboss/keycloak/
+RUN java -jar /usr/share/java/saxon.jar -s:/opt/jboss/keycloak/standalone/configuration/standalone.xml -xsl:/opt/jboss/keycloak/changeDatabase.xsl -o:/opt/jboss/keycloak/standalone/configuration/standalone.xml; java -jar /usr/share/java/saxon.jar -s:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml -xsl:/opt/jboss/keycloak/changeDatabase.xsl -o:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml; rm /opt/jboss/keycloak/changeDatabase.xsl
+
 USER root
 RUN yum install -y xmlstarlet
 
 USER jboss
-RUN xmlstarlet ed --inplace \
-    -N x="urn:jboss:domain:undertow:3.0" \
-    -a "//x:http-listener" \
-    -t attr \
-    -n 'proxy-address-forwarding' \
-    -v 'true' \
-    /opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
+# RUN xmlstarlet ed --inplace \
+#     -N x="urn:jboss:domain:undertow:4.0" \
+#     -a "//x:http-listener" \
+#     -t attr \
+#     -n 'proxy-address-forwarding' \
+#     -v 'true' \
+#     /opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
 
 RUN xmlstarlet ed --inplace \
-    -N x="urn:jboss:domain:undertow:3.0" \
+    -N x="urn:jboss:domain:undertow:4.0" \
     -s "//x:host" \
     -t elem \
     -n 'access-log' \

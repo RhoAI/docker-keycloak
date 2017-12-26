@@ -10,7 +10,7 @@ In addition to the original functionality, this image includes the option to use
 
 Clone the repository
 
-        git clone REPO_URL
+        git clone https://github.com/RhoAI/docker-keycloak.git
         cd docker-keycloak
         ./build.sh
 
