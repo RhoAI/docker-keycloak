@@ -41,13 +41,13 @@ RUN xmlstarlet ed --inplace \
     -s "//x:providers" \
     -t elem \
     -n 'provider' \
-    -v 'module:ai.rho.hashprovider' \
+    -v 'module:ai.rho.extensions' \
     /opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
 
 ADD docker-entrypoint.sh /opt/jboss/
 
-RUN mkdir -p /opt/jboss/keycloak/modules/ai/rho/hashprovider/main
-ADD hash-module.xml /opt/jboss/keycloak/modules/ai/rho/hashprovider/main/module.xml
-ADD password-hash.jar /opt/jboss/keycloak/modules/ai/rho/hashprovider/main
+RUN mkdir -p /opt/jboss/keycloak/modules/ai/rho/extensions/main
+ADD extensions-module.xml /opt/jboss/keycloak/modules/ai/rho/extensions/main/module.xml
+ADD extensions.jar /opt/jboss/keycloak/modules/ai/rho/extensions/main
 
 CMD ["--server-config", "standalone-ha.xml"]
