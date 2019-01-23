@@ -1,0 +1,44 @@
+keycloak:
+  image:
+    repository: jboss/keycloak
+    tag: 4.8.3.Final
+  replicas: 1
+
+  ## Username for the initial Keycloak admin user
+  username: keycloak
+
+  ## Password for the initial Keycloak admin user
+  ## If not set, a random 10 characters password will be used
+  password: keycloak
+
+  # startupscript --> run the s3 copy on first init
+
+  # extraInitContainers: |
+  #   - name: theme-provider
+  #     image: rhoai/keycloak-themes:latest
+  #     imagePullPolicy: IfNotPresent
+  #     command:
+  #       - sh
+  #     args:
+  #       - -c
+  #       - |
+  #         echo "Copying themes..."
+  #         cp -R /themes/rhoai-theme /rhoai-theme
+  #         cp -R /themes/foobar-theme /foobar-theme
+  #     volumeMounts:
+  #       - name: rhoai-theme
+  #         mountPath: /rhoai-theme
+  #       - name: foobar-theme
+  #         mountPath: /foobar-theme
+  #
+  # extraVolumeMounts: |
+  #   - name: rhoai-theme
+  #     mountPath: /opt/jboss/keycloak/themes/rhoai-theme
+  #   - name: foobar-theme
+  #     mountPath: /opt/jboss/keycloak/themes/foobar-theme
+  #
+  # extraVolumes: |
+  #   - name: rhoai-theme
+  #     emptyDir: {}
+  #   - name: foobar-theme
+  #     emptyDir: {}
