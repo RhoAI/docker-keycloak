@@ -1,11 +1,21 @@
 FROM jboss/keycloak:4.8.3.Final
 
-ADD docker-entrypoint.sh /opt/jboss/
+# Use root
+USER root
 
-ADD raincatcher-keycloak-theme/ /opt/jboss/keycloak/themes/
+# Ensure AWS CLI tool is available
+RUN yum -y install awscli
 
-#RUN mkdir -p /opt/jboss/keycloak/modules/ai/rho/extensions/main
-#ADD extensions-module.xml /opt/jboss/keycloak/modules/ai/rho/extensions/main/module.xml
-#ADD extensions.jar /opt/jboss/keycloak/modules/ai/rho/extensions/main
+# Add aws credentials required to use the CLI. These are expected to be
+# available in build context in a file `.aws_credentials` in correct format.
+RUN mkdir /opt/jboss/.aws
+ADD .aws_credentials /opt/jboss/.aws/credentials
 
-#CMD ["--server-config", "standalone-ha.xml"]
+# Make a new /bin/rho directory
+RUN mkdir /bin/rho
+
+# Add the script responsible for syncing themes from S3 down to the container
+ADD sync_themes.sh /bin/rho/sync_themes.sh
+
+# Use jboss user again.
+USER jboss

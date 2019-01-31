@@ -15,11 +15,7 @@ services:
         MYSQL_USER: keycloak
         MYSQL_PASSWORD: password
   keycloak:
-      image: jboss/keycloak:4.8.3.Final
-      volumes:
-        # - ./rhoai-theme:/opt/jboss/keycloak/themes/rhoai-theme
-        - ./themes:/opt/jboss/keycloak/temp-themes
-        # - ./standalone.xml:/opt/jboss/keycloak/standalone/configuration/standalone.xml
+      image: rhoai/keycloak:v0.0.1-dev5
       environment:
         DB_VENDOR: MYSQL
         DB_ADDR: mysql
