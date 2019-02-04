@@ -1,6 +1,7 @@
 #!/bin/bash
 
 IMAGE_TAG="rhoai/keycloak"
+SIDEKICK_TAG="rhoai/keycloak-theme-sync"
 
 # custom die function
 
@@ -13,6 +14,9 @@ while getopts "t:" opt; do
         t)
            IMAGE_TAG=${OPTARG}
            ;;
+        s)
+           SIDEKICK_TAG=${OPTARG}
+           ;;
         \?)
            die "Invalid option: -$OPTARG"
            ;;
@@ -20,3 +24,5 @@ while getopts "t:" opt; do
 done
 
 docker build -t="${IMAGE_TAG}" .
+
+docker build -t="${SIDEKICK_TAG}" -f Dockerfile-sync .

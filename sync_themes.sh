@@ -7,7 +7,10 @@ echo "Sync all themes from S3 ..."
 # TODO make bucket set from environment
 # consider if the aws profile should be able to be overriden as well, is it
 # possible we'd want more than one profile?
-aws s3 sync s3://temp-rho-theme  /opt/jboss/keycloak/themes/
+# TODO make this the shared volume path
+aws s3 sync s3://temp-rho-theme /bin/rho/themes/
+
+echo "Sync complete ..."
 
 # # Go to our themes directory
 # cd /opt/jboss/keycloak/themes
