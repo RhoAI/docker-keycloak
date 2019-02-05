@@ -1,3 +1,5 @@
 .DS_Store
 
 .aws_credentials
+.env
+helm/answers.yaml
