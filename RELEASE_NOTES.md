@@ -1,5 +1,8 @@
 # Release Notes
 
+## v4.8.3-0.5.0 (2019-02-06)
+* Create sidecar container to sync themes with Keycloak via AWS S3 bucket
+
 ## v3.2.1-0.4.0 (2017-11-27)
 * Functionality for searching for users by group based on custom attributes.
 
