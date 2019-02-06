@@ -1,0 +1,52 @@
+# This file are the answers for stable/keycloak to have
+# a sidecar theme sync container.
+# If we use this method, any time we update the sidecar container,
+# Keycloak will also be updated (even if keycloak values are unchanged).
+# The sync container also gets permission denied errors when starting cron.
+
+keycloak:
+  replicas: 1
+
+  image:
+    tag: 4.8.3.Final
+    pullSecrets: [dockersecrets]
+
+  username: keycloak
+  password: keycloak
+
+  ingress:
+    enabled: true
+    hosts: [keycloak.example.com]
+
+  persistence:
+    deployPostgres: false
+    dbVendor: h2
+    dbName: keycloak
+    dbHost: localhost
+    dbPort: 3306 
+    dbUser: keycloak
+    dbPassword: keycloak
+
+  extraVolumeMounts: |
+    - name: theme
+      mountPath: /opt/jboss/keycloak/themes
+
+  extraVolumes: |
+    - name: theme
+      hostPath:
+        path: /data/keycloak-themes
+
+  extraContainers: |
+    - name: "keycloak-theme-sync"
+      image: "rhoai/keycloak-theme-sync:dev"
+      imagePullPolicy: Always
+      env:
+        - name: AWS_ACCESS_KEY_ID
+          value: ""
+        - name: AWS_SECRET_ACCESS_KEY
+          value: ""
+        - name: S3_BUCKET
+          value: "temp-rho-theme"
+      volumeMounts:
+        - name: theme
+          mountPath: /opt/jboss/keycloak/themes

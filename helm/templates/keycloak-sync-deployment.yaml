@@ -9,6 +9,8 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "rhoai-keycloak.name" . }}-sync
@@ -51,13 +53,11 @@ spec:
               value: {{ .Values.sync.awsSecretAccessKey }}
             - name: S3_BUCKET
               value: {{ .Values.sync.s3Bucket }}
-            - name: TEST
-              value: {{ .Values.sync.s3Bucket }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: theme
-              mountPath: /opt/jboss/keycloak/themes/mytheme
+              mountPath: /opt/jboss/keycloak/themes
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -69,6 +69,6 @@ spec:
       volumes:
         - name: theme
           hostPath:
-            path: /data/keycloak
+            path: /data/keycloak-themes
       imagePullSecrets:
         - name: rhoaidev
