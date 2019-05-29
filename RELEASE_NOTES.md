@@ -1,5 +1,9 @@
 # Release Notes
 
+## v6.0.1-0.6.0 (2019-02-06)
+* Add `--delete` flag to sync so the container will clean up any deleted themes.
+* Bump keycloak version as v6 is now in production.
+
 ## v4.8.3-0.5.0 (2019-02-06)
 * Create sidecar container to sync themes with Keycloak via AWS S3 bucket
 
@@ -7,7 +11,7 @@
 * Functionality for searching for users by group based on custom attributes.
 
 ## v3.2.1-0.3.0 (2017-11-05)
-* GroupUser Resource: retrieve users by group name, retrieve count of users by 
+* GroupUser Resource: retrieve users by group name, retrieve count of users by
 group name, and add a user to a group by group name.
 * Resources for creating a reset password key and validating a reset password key.
 
