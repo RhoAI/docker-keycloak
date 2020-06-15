@@ -11,6 +11,7 @@ echo "Sync all themes from S3 ..."
 # TODO make bucket set from environment
 # consider if the aws profile should be able to be overriden as well, is it
 # possible we'd want more than one profile?
-aws s3 sync s3://${S3_BUCKET} /opt/jboss/keycloak/themes --delete
+# --exact-timestamps ensures that files with the same size but different timestamps are copied
+aws s3 sync s3://${S3_BUCKET} /opt/jboss/keycloak/themes --delete --exact-timestamps
 
 echo "Sync complete ..."
