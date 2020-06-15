@@ -1,5 +1,8 @@
 # Release Notes
 
+## v6.0.1-0.6.1 (2020-06-15)
+* Add  --exact-timestamps flag to aws sync to ensure files with same size but different timestamps are copied
+
 ## v6.0.1-0.6.0 (2019-02-06)
 * Add `--delete` flag to sync so the container will clean up any deleted themes.
 * Bump keycloak version as v6 is now in production.
